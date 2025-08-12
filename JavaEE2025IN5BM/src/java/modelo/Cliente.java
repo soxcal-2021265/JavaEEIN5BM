@@ -80,5 +80,15 @@ public class Cliente {
         return "Cliente{" + "codigoCliente=" + codigoCliente + ", nombreCliente=" + nombreCliente + ", telefonoCliente=" + telefonoCliente + ", correoCliente=" + correoCliente + ", direccion=" + direccion + ", contrasena=" + contrasena + '}';
     }
 
+    public Cliente(int codigoCliente, String nombreCliente, String telefonoCliente, String correoCliente, String direccion, String contrasena) {
+        this.codigoCliente = codigoCliente;
+        this.nombreCliente = nombreCliente;
+        this.telefonoCliente = telefonoCliente;
+        this.correoCliente = correoCliente;
+        this.direccion = direccion;
+        this.contrasena = contrasena;
+    }
+    
+    
     
 }
