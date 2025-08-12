@@ -1153,3 +1153,4 @@ create procedure sp_EliminarDetalleFactura(in exDetalle int )
 DELIMITER ;
 -- call sp_EliminarDetalleFactura(11);
 
+select * from Cliente where correoCliente = 'ana.lopez@gmail.com' and contrasena = 'maxQuinto';
