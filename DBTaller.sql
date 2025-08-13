@@ -19,7 +19,7 @@ create table Cliente(
     nombreCliente varchar(250) not null,
     telefonoCliente varchar(8)not null unique,
     correoCliente varchar(250) not null unique,
-    direccion varchar(250),
+    direccion varchar(250),	
     contrasena varchar(250),
     rol varchar(250),
     primary key PK_codigoCliente(codigoCliente)
@@ -264,7 +264,7 @@ CALL sp_EditarEmpleado(4, 'Robereto', '44998877', 'roberto@gmail.com', 'Zona 10'
 delimiter //
 create procedure sp_ListarCliente()
 begin
-	select codigoCliente, nombreCliente, telefonoCliente, correoCliente, direccion, contrasena from Cliente;
+	select codigoCliente, nombreCliente, telefonoCliente, correoCliente, direccion, contrasena, rol from Cliente;
 end //
 delimiter ;
 call sp_ListarCliente();
@@ -324,7 +324,7 @@ begin
 	where codigoCliente = cCliente;
 end //
 delimiter ;
--- call sp_ModificarCliente(1, 'Andre', 12123123, 'asdasd@gmail.com', 'zona 1', 'maxQuinto', 'cliente');
+-- call sp_ModificarCliente(1, 'Andre', 12123123, 'asdasd@gmail.com', 'zona 1', 'maxQuinto');
 
 delimiter //
 create procedure sp_BuscarCliente(in cCliente int)
@@ -338,7 +338,7 @@ delimiter ;
 DELIMITER $$
 create procedure sp_validarCliente(in userr varchar(100), in pass blob)
 	begin
-		select codigoCliente, nombreCliente, telefonoCliente, correoCliente, direccion, contrasena, rol from Cliente
+		select codigoCliente, nombreCliente, telefonoCliente, correoCliente, direccion, contrasena from Cliente
 			where nombreCliente = userr and contrasena = pass;
     end$$
 DELIMITER ;
@@ -349,7 +349,7 @@ create procedure sp_NoDuplicarCliente(
     in username varchar(20)
 )
 begin
-    select codigoCliente, nombreCliente, telefonoCliente, correoCliente, direccion, contrasena, rol from Cliente
+    select codigoCliente, nombreCliente, telefonoCliente, correoCliente, direccion, contrasena from Cliente
     where nombreCliente = username;
 end$$
 DELIMITER ;

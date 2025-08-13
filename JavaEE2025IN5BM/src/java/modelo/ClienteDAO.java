@@ -4,6 +4,8 @@ import config.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClienteDAO {
     
@@ -36,5 +38,47 @@ public class ClienteDAO {
             e.printStackTrace();
         }
         return cliente;
+    }
+    
+    public List listar() {
+        String sql = "select * from Cliente";
+        List<Cliente> listaClientes = new ArrayList<>();
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Cliente cl = new Cliente();
+                cl.setCodigoCliente(rs.getInt(1));
+                cl.setNombreCliente(rs.getString(2));
+                cl.setTelefonoCliente(rs.getString(3));
+                cl.setCorreoCliente(rs.getString(4));
+                cl.setDireccion(rs.getString(5));
+                cl.setContrasena(rs.getString(6));
+                cl.setRol(rs.getString(7));
+                listaClientes.add(cl);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listaClientes;
+    }
+    
+    public int agregar(Cliente cl) {
+        String sql = "insert into Cliente(nombreCliente, telefonoCliente, correoCliente, direccion, contrasena, rol) values (?, ?, ?, ?, ?, ?)";
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, cl.getNombreCliente());
+            ps.setString(2, cl.getTelefonoCliente());
+            ps.setString(3, cl.getCorreoCliente());
+            ps.setString(4, cl.getDireccion());
+            ps.setString(5, cl.getContrasena());
+            ps.setString(6, cl.getRol());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resp;
     }
 }
