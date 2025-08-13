@@ -72,11 +72,11 @@
                         <span class="perfil">Perfil</span>
                     </div>
                     <div class="user-menu" id="userMenu">
-                        <img src="Images/ususarioAdmin.png" class="user-avatar" alt="Avatar">
-                        <p class="user-name">EjemploUsuario</p>
-                        <p class="user-email">ejemploUsuario@gmail.com</p>
-                        <button id="buttonUsuario">Cambiar cuenta</button>
-                        <button id="buttonUsuario">Cerrar Sesión</button>
+                        <a class="user-avatar" href="#"><img src="Images/ususarioAdmin.png" alt="Avatar">
+                            <a class="user-name" href="#">Ola123</a>    
+                            <a class="user-email" href="#">ejemploUsuario@gmail.com</a>
+                            <button id="buttonUsuario">Cambiar cuenta</button>
+                            <button type="submit" name="accion" value="salir" class="buttonUsuario">Cerrar Sesión</button>
                     </div>
                 </div>
                 <div class="navMenu">
@@ -94,17 +94,14 @@
                     <img src="Images/mecanicosbannerxd.jpg" alt="Cambio de aceite" class="service-img">
                     <h3>Empleados</h3>
                     <p class="service-description">Mecanicos y recepcionistas presentes en el taller</p>            
-                    <a href="MecanicosAdmin.jsp">
-                        <button class="service-btn view-details">Ingresar</button>
-                    </a>
+                    <a class="service-btn view-details" href="Controlador?menu=Empleado" target="myFrame">Ingresar</a>
+
                 </div>
                 <div class="service-card" data-category="reparaciones">
                     <img src="Images/clientesbanner.jpg" alt="Alineación y balanceo" class="service-img">
                     <h3>Clientes</h3>
                     <p class="service-description">Usuarios ingresados que consumen nuestros servicios</p>
-                    <a href="ClientesAdmin.jsp">
-                        <button class="service-btn view-details">Ingresar</button>
-                    </a>
+                    <a class="service-btn view-details" href="Controlador?menu=ClientesAdmin&accion=Listar" target="myFrame">Ingresar</a>
                 </div>
                 <div class="service-card" data-category="diagnostico">
                     <img src="Images/autosbanner.jpg" alt="Diagnóstico computarizado" class="service-img">
