@@ -1,4 +1,4 @@
--- drop database if exists DB_Taller;
+drop database if exists DB_Taller;
 create database DB_Taller;
 use DB_Taller;
 
@@ -21,6 +21,7 @@ create table Cliente(
     correoCliente varchar(250) not null unique,
     direccion varchar(250),
     contrasena varchar(250),
+    rol varchar(250),
     primary key PK_codigoCliente(codigoCliente)
 );
 -- AUTO
@@ -274,24 +275,25 @@ create procedure sp_AgregarCliente(
     in tCliente char(8),
     in cCliente varchar(250),
     in dCliente varchar(250),
-    in conCliente varchar(250)
+    in conCliente varchar(250),
+    in rlCliente varchar(250)
     )
 begin
-	insert into Cliente(nombreCliente, telefonoCliente, correoCliente, direccion, contrasena)
-    values (nCliente, tCliente, cCliente, dCliente, conCliente);
+	insert into Cliente(nombreCliente, telefonoCliente, correoCliente, direccion, contrasena, rol)
+    values (nCliente, tCliente, cCliente, dCliente, conCliente, rlCliente);
 end //
 delimiter ;
-call sp_AgregarCliente('Ana López','12345678','ana.lopez@gmail.com','Zona 1', 'maxQuinto');
-call sp_AgregarCliente('Carlos Méndez','23456789','carlos.m@gmail.com','Zona 2', 'aquiSiFolgar');
-call sp_AgregarCliente('Lucía Torres','34567890','lucia.t@gmail.com','Zona 3', 'ArochaCalculadora');
-call sp_AgregarCliente('Mario Ruiz','45678901','mario.r@gmail.com','Zona 4', 'Mbappe123');
-call sp_AgregarCliente('Sandra Díaz','56789012','sandra.d@gmail.com','Zona 5', 'TortugaNinja');
-call sp_AgregarCliente('José Ramírez','67890123','jose.r@gmail.com','Zona 6', 'clckk');
-call sp_AgregarCliente('Paola Soto','78901234','paola.s@gmail.com','Zona 7', 'tralalero tralala');
-call sp_AgregarCliente('Luis Castillo','89012345','luis.c@gmail.com','Zona 8', 'sipirili');
-call sp_AgregarCliente('Diana Pérez','90123456','diana.p@gmail.com','Zona 9', 'noporolo');
-call sp_AgregarCliente('Héctor Gómez','10234567','hector.g@gmail.com','Zona 10', 'terreneitor');
-call sp_AgregarCliente('Andrea Cruz','11234567','andrea.c@gmail.com','Zona 11', 'chavito');
+call sp_AgregarCliente('Ana López','12345678','ana.lopez@gmail.com','Zona 1', 'maxQuinto', 'cliente');
+call sp_AgregarCliente('Carlos Méndez','23456789','carlos.m@gmail.com','Zona 2', 'aquiSiFolgar', 'cliente');
+call sp_AgregarCliente('Lucía Torres','34567890','lucia.t@gmail.com','Zona 3', 'ArochaCalculadora', 'cliente');
+call sp_AgregarCliente('Mario Ruiz','45678901','mario.r@gmail.com','Zona 4', 'Mbappe123', 'cliente');
+call sp_AgregarCliente('Sandra Díaz','56789012','sandra.d@gmail.com','Zona 5', 'TortugaNinja', 'cliente');
+call sp_AgregarCliente('José Ramírez','67890123','jose.r@gmail.com','Zona 6', 'clckk', 'cliente');
+call sp_AgregarCliente('Paola Soto','78901234','paola.s@gmail.com','Zona 7', 'tralalero tralala', 'cliente');
+call sp_AgregarCliente('Luis Castillo','89012345','luis.c@gmail.com','Zona 8', 'sipirili', 'cliente');
+call sp_AgregarCliente('Diana Pérez','90123456','diana.p@gmail.com','Zona 9', 'noporolo', 'cliente');
+call sp_AgregarCliente('Héctor Gómez','10234567','hector.g@gmail.com','Zona 10', 'terreneitor', 'cliente');
+call sp_AgregarCliente('Sebastian Florian','11111111','soxcal-2021265@kinal.edu.gt','Zona 2', '2021265', 'admin');
 
 delimiter //
 create procedure sp_EliminarCliente(in cCliente int)
@@ -308,7 +310,8 @@ create procedure sp_ModificarCliente(
     in tCliente char(8),
     in coCliente varchar(250),
     in dCliente varchar(250),
-    in conCliente varchar(250)
+    in conCliente varchar(250),
+    in rlCliente varchar(250)
 )
 begin
 	update Cliente
@@ -316,16 +319,17 @@ begin
 		telefonoCliente = tCliente,
         correoCliente = coCliente,
         direccion = dCliente,
-        contrasena = conCliente
+        contrasena = conCliente,
+        rol = rlCliente
 	where codigoCliente = cCliente;
 end //
 delimiter ;
--- call sp_ModificarCliente(1, 'Andre', 12123123, 'asdasd@gmail.com', 'zona 1', 'maxQuinto');
+-- call sp_ModificarCliente(1, 'Andre', 12123123, 'asdasd@gmail.com', 'zona 1', 'maxQuinto', 'cliente');
 
 delimiter //
 create procedure sp_BuscarCliente(in cCliente int)
 begin
-	select codigoCliente, nombreCliente, telefonoCliente, correoCliente, direccion, contrasena from Cliente
+	select codigoCliente, nombreCliente, telefonoCliente, correoCliente, direccion, contrasena, rol from Cliente
     where codigoCliente = cCliente;
 end //
 delimiter ;
@@ -334,7 +338,7 @@ delimiter ;
 DELIMITER $$
 create procedure sp_validarCliente(in userr varchar(100), in pass blob)
 	begin
-		select codigoCliente, nombreCliente, telefonoCliente, correoCliente, direccion, contrasena from Cliente
+		select codigoCliente, nombreCliente, telefonoCliente, correoCliente, direccion, contrasena, rol from Cliente
 			where nombreCliente = userr and contrasena = pass;
     end$$
 DELIMITER ;
@@ -345,7 +349,7 @@ create procedure sp_NoDuplicarCliente(
     in username varchar(20)
 )
 begin
-    select codigoCliente, nombreCliente, telefonoCliente, correoCliente, direccion, contrasena from Cliente
+    select codigoCliente, nombreCliente, telefonoCliente, correoCliente, direccion, contrasena, rol from Cliente
     where nombreCliente = username;
 end$$
 DELIMITER ;

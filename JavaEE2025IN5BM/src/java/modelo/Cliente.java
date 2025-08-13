@@ -22,6 +22,8 @@ public class Cliente {
     private String direccion;
     @Column
     private String contrasena;
+    @Column
+    private String rol;
     
     public Cliente(){
         
@@ -75,20 +77,27 @@ public class Cliente {
         this.contrasena = contrasena;
     }
 
-    @Override
-    public String toString() {
-        return "Cliente{" + "codigoCliente=" + codigoCliente + ", nombreCliente=" + nombreCliente + ", telefonoCliente=" + telefonoCliente + ", correoCliente=" + correoCliente + ", direccion=" + direccion + ", contrasena=" + contrasena + '}';
+    public String getRol() {
+        return rol;
     }
 
-    public Cliente(int codigoCliente, String nombreCliente, String telefonoCliente, String correoCliente, String direccion, String contrasena) {
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente{" + "codigoCliente=" + codigoCliente + ", nombreCliente=" + nombreCliente + ", telefonoCliente=" + telefonoCliente + ", correoCliente=" + correoCliente + ", direccion=" + direccion + ", contrasena=" + contrasena + ", rol=" + rol + '}';
+    }
+
+    public Cliente(int codigoCliente, String nombreCliente, String telefonoCliente, String correoCliente, String direccion, String contrasena, String rol) {
         this.codigoCliente = codigoCliente;
         this.nombreCliente = nombreCliente;
         this.telefonoCliente = telefonoCliente;
         this.correoCliente = correoCliente;
         this.direccion = direccion;
         this.contrasena = contrasena;
+        this.rol = rol;
     }
-    
-    
     
 }

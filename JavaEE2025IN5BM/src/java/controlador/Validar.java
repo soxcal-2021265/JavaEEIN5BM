@@ -73,26 +73,32 @@ public class Validar extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String accion = request.getParameter("accion"); //con la palabra accion va ejecutar en el HTML
-        if(accion.equalsIgnoreCase("Ingresar")){ //Usa el nombre del boton
-            String email = request.getParameter("txtCorreo"); //parametro del form
-            String pass = request.getParameter("txtPassword"); //parametro del form
-            cliente = clienteDao.validar(email,pass);
-            if (cliente.getCorreoCliente() != null) {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    String accion = request.getParameter("accion");
+    
+    if (accion.equalsIgnoreCase("Ingresar")) {
+        String email = request.getParameter("txtCorreo");
+        String pass = request.getParameter("txtPassword");
+
+        ClienteDAO clienteDao = new ClienteDAO();
+        Cliente cliente = clienteDao.validar(email, pass);
+        if (cliente.getCorreoCliente() != null) {
+            // Verificar el rol del cliente para redirigir a la página correcta
+            if (cliente.getRol().equalsIgnoreCase("admin")) {
+                request.setAttribute("email", cliente);
+                request.getRequestDispatcher("MenuInicioAdmin.jsp").forward(request, response);
+            } else {
                 request.setAttribute("email", cliente);
                 request.getRequestDispatcher("Controlador?menu=MenuInicio").forward(request, response);
-            }else{
-                request.getRequestDispatcher("index.jsp").forward(request, response);
             }
-        }else{
+        } else {
+            // Si el cliente no es encontrado, redirige al index
             request.getRequestDispatcher("index.jsp").forward(request, response);
-        }    
+        }
+    } else {
+        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+}
  
 }
