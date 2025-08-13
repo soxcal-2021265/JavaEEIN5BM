@@ -29,6 +29,7 @@ public class ClienteDAO {
                 cliente.setNombreCliente(rs.getString("nombreCliente"));
                 cliente.setContrasena(rs.getString("contrasena"));
                 cliente.setCorreoCliente(rs.getString("correoCliente"));
+                cliente.setRol(rs.getString("rol"));
             }
         } catch (Exception e) {
             System.out.println("El correo o contrasena son incorrectos");
